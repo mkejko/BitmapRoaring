@@ -1,4 +1,4 @@
-## Tornado Web API implementig roaring bitmap
+## Tornado Web API with roaring bitmap
 
 Instractions:
 
