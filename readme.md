@@ -3,7 +3,7 @@
 Instructions:
 
 1. Clone the github project
-2. Install pyroaring. Use the following command in command prompt: pip install pyroaring
+2. Install pyroaring. Use the following command in command prompt: pip install pyroaring.
    More information on this link https://github.com/Ezibenroc/PyRoaringBitMap
 3. If necessary install Microsoft C++ Build tools from this link https://visualstudio.microsoft.com/visual-cpp-build-tools/
    More info about the error (Microsoft Visual C++ 14.0 or greater is required) on the following link
