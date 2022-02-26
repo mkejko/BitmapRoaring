@@ -1,0 +1,22 @@
+<html>
+   <head>
+      <title>Session management</title>
+      <style>
+        body {
+          background-color: #dbefe5;
+          margin: 50px 150px;
+        }                               
+    </style>
+   </head>
+   <body>
+    <a href="/">Back</a>
+    <h2>Session management</h2>   
+    
+    <p>Number of inactive users for 7 days: {{number}}</p>
+     <ol>
+       {% for item in items %}
+         <li>{{ escape(item) }}</li>
+       {% end %}
+     </ol>
+   </body>
+ </html>

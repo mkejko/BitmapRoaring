@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Load test</title>
+    <style>
+        body {
+          background-color: #dbefe5;
+          margin: 100px 150px;
+        }                               
+    </style>
+    <script type="text/javascript">
+        var ws = null;
+        function init() {
+            if ("WebSocket" in window) {
+                ws = new WebSocket("ws://localhost:8888/ws/");
+                ws.onopen = function() {
+                    console.log("Connection is opened");
+                }
+                ws.onclose = function() {
+                    console.log("Connection is closed");
+                }
+                ws.onmessage = function(msg) {
+                    document.getElementById("display").innerHTML += msg.data;
+                }    
+            } else {
+                console.log('Your browser doenst support WebSocket!')
+            }
+        }
+
+        function send(){
+            debugger;
+            if(!isPositiveInteger(document.getElementById("txt").value)){
+                document.getElementById("warning").innerHTML = "Type a positive integer in the right format";
+            }
+            else if(document.getElementById("txt").value > 9999){
+                document.getElementById("warning").innerHTML = "The number is to big";
+            }
+            else{
+                document.getElementById("warning").innerHTML = "";
+                ws.send(document.getElementById("txt").value);
+            }
+        }
+
+        function isPositiveInteger(n) {
+            return n >>> 0 === parseFloat(n);
+        }
+
+        function remove(){
+            document.getElementById("display").innerHTML = "";
+        }
+    </script>
+</head>
+<body onload="init();">
+    <a href="/">Back</a>
+    <h2>Load test</h2>   
+    
+    <p>Type the number of concurrent sessions</p>
+    <input type="text" id="txt">
+    <input type="button" onclick="send()" value="Test">
+    <h3>Response:</h3>
+    <p>The tornado api methods are concurrently called to retrieve data of random users. The results are returned using web sockets</p>
+    <input type="button" onclick="remove()" value="Clear">
+    <p style="color: red;" id="warning"></p>
+    <p id="display"></p>
+</body>
+</html>

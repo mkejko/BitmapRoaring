@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Tornado RoaringBitmap API</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            body {
+              background-color: #dbefe5;
+              margin: 100px 150px;
+            }                               
+        </style>
+    </head>
+    <body>
+        <a href="/">Back</a>
+        <h2>User tagging</h2>   
+        <p>Please select a tag. Selecting multiple tags is not possible</p>
+
+        
+        <select id = 'userTags' label="User Tags">
+        <option>Select</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        </select>
+   
+        <button id = 'btnTagAmount'>Amount of Users with tag</button>
+        <button id = 'btnUsersWithTag'>Show Users with tag</button>
+        <br>
+        <input type="button" onclick="remove()" value="Clear">
+        <br>
+        <p id="amount"></p>
+        <ol id="Results"></ol>
+        
+        <script>
+            const tag = document.getElementById("userTags") //all,1,2,3...
+            const tagAmount = document.getElementById("btnTagAmount")
+            const usersWithTag = document.getElementById("btnUsersWithTag")
+            const results = document.getElementById("Results")
+            //alert(tag.value)
+            
+            tagAmount.addEventListener("click", e=>{
+                //document.getElementById("Results").innerHTML = "";
+                remove();
+                fetch(`http://localhost:8888/tag_amount/${tag.value}`, {"method":"GET"})
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("amount").innerHTML = data;
+                    console.log(data)
+                })
+                
+            })
+
+            usersWithTag.addEventListener("click", e=>{
+                remove();
+                fetch(`http://localhost:8888/tags/${tag.value}`, {"method":"GET"})
+                .then(response => response.json())
+                .then(jsonResponse =>jsonResponse.forEach(item => {
+                    let o = document.createElement("li")
+                    o.innerHTML = item
+                    console.log(item)
+                    results.appendChild(o)
+                }))
+                
+            })
+
+            function remove(){
+                document.getElementById("Results").innerHTML = "";
+                document.getElementById("amount").innerHTML = "";
+            }
+        </script> 
+  
+        <script src="" async defer></script>
+    </body>
+</html>
